@@ -26,6 +26,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
+
 ---
 
 apiVersion: apps/v1
@@ -56,8 +57,8 @@ spec:
           imagePullPolicy: Never
           name: app
           volumeMounts:
-            - mountPath: /vol/web
-              name: django-app-data
+            - name: django-app-data
+              mountPath: /vol/web
           env:
             - name: DB_HOST
               value: django-postgres
@@ -85,15 +86,10 @@ spec:
             - containerPort: 8000
               name: proxy
           volumeMounts:
-            - mountPath: /vol/web
-              name: django-app-data
+            - name: django-app-data
+              mountPath: /vol/web
           env:
             - name: APP_HOST
               value: '127.0.0.1'
             - name: APP_PORT
               value: '8080'
-
-
-
-
-
